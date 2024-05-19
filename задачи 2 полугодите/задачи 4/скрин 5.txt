@@ -1,0 +1,19 @@
+import pandas as pd
+
+def sum_column(csv_file, column_name):
+    # Чтение данных из CSV-файла
+    df = pd.read_csv(csv_file)
+
+    # Проверка наличия указанного столбца в данных
+    if column_name not in df.columns:
+        return f"Столбец '{column_name}' не найден в файле {csv_file}"
+
+    # Вычисление суммы значений в указанном столбце
+    column_sum = df[column_name].sum()
+    return f"Сумма значений столбца '{column_name}': {column_sum}"
+
+# Пример использования
+csv_file = "data.csv"
+column_name = "Amount"
+result = sum_column(csv_file, column_name)
+print(result)

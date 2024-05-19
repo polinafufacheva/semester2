@@ -1,0 +1,27 @@
+import csv
+
+def read_csv(file_name):
+    try:
+        with open(file_name, 'r', newline='') as file:
+            reader = csv.reader(file)
+            print(f"Содержимое файла {file_name}:")
+            for row in reader:
+                print(row)
+    except FileNotFoundError:
+        print(f"Файл {file_name} не найден.")
+
+# Создание CSV-файла и запись данных
+file_name = "data.csv"
+data = [
+    ["Имя", "Фамилия", "Возраст"],
+    ["Иван", "Иванов", 25],
+    ["Петр", "Петров", 30],
+    ["Анна", "Сидорова", 28]
+]
+
+with open(file_name, 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+# Вызов функции для чтения CSV-файла
+read_csv(file_name)

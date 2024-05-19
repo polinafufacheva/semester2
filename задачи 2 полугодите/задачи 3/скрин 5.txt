@@ -1,0 +1,42 @@
+import xml.etree.ElementTree as ET
+
+def read_xml(file_name):
+    tree = ET.parse(file_name)
+    root = tree.getroot()
+    return root
+
+def sort_products_by_price(products):
+    sorted_products = sorted(products, key=lambda x: float(x.find('price').text))
+    return sorted_products
+
+def filter_products_by_category(products, category):
+    filtered_products = [product for product in products if product.find('category').text == category]
+    return filtered_products
+
+def calculate_total_order_cost(products):
+    total_cost = sum(float(product.find('price').text) * int(product.find('quantity').text) for product in products)
+    return total_cost
+
+# Пример использования
+xml_file = "products.xml"
+root = read_xml(xml_file)
+
+# Извлечение информации о товарах
+products = root.findall('product')
+
+# Сортировка товаров по цене
+sorted_products = sort_products_by_price(products)
+print("Товары, отсортированные по цене:")
+for product in sorted_products:
+    print(f"Название: {product.find('name').text}, Цена: {product.find('price').text}")
+
+# Фильтрация товаров по категории
+category = "Electronics"
+filtered_products = filter_products_by_category(products, category)
+print(f"\nТовары в категории '{category}':")
+for product in filtered_products:
+    print(f"Название: {product.find('name').text}, Категория: {product.find('category').text}")
+
+# Расчет общей стоимости заказа
+total_cost = calculate_total_order_cost(products)
+print(f"\nОбщая стоимость заказа: {total_cost}")

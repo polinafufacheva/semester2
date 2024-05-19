@@ -1,0 +1,29 @@
+class BankAccount:
+    def __init__(self, account_number, owner, balance):
+        self.account_number = account_number
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount - (amount * 0.01)  # Учитываем комиссию 1%
+            print(f"Счет {self.account_number} пополнен на {amount} рублей.")
+        else:
+            print("Сумма для пополнения должна быть положительной.")
+
+    def withdraw(self, amount):
+        if amount > 0 and self.balance >= amount:
+            self.balance -= amount + (amount * 0.01)  # Учитываем комиссию 1%
+            print(f"Со счета {self.account_number} списано {amount} рублей.")
+        else:
+            print("Недостаточно средств на счете или указана неверная сумма.")
+
+    def check_balance(self):
+        print(f"Баланс счета {self.account_number}: {self.balance} рублей.")
+
+# Пример использования класса BankAccount
+account1 = BankAccount("123456789", "Иванов Иван", 1000)
+account1.check_balance()  # Баланс счета 123456789: 1000 рублей
+account1.deposit(500)     # Счет 123456789 пополнен на 500 рублей.
+account1.withdraw(300)    # Со счета 123456789 списано 300 рублей.
+account1.check_balance()  # Баланс счета 123456789: 1190.0 рублей

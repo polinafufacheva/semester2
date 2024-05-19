@@ -1,0 +1,22 @@
+import numpy as np
+
+class LinearEquationSolver:
+    def __init__(self, coefficients_matrix, constants_vector):
+        self.coefficients_matrix = coefficients_matrix
+        self.constants_vector = constants_vector
+
+    def solve(self):
+        try:
+            # Решаем систему линейных уравнений
+            solution = np.linalg.solve(self.coefficients_matrix, self.constants_vector)
+            return solution
+        except np.linalg.LinAlgError:
+            return "Система линейных уравнений не имеет решения"
+
+# Пример использования
+coefficients_matrix = np.array([[2, 3], [1, -1]])
+constants_vector = np.array([10, -2])
+
+solver = LinearEquationSolver(coefficients_matrix, constants_vector)
+solution = solver.solve()
+print("Решение системы линейных уравнений:", solution)

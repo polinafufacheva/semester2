@@ -1,0 +1,17 @@
+def read_file(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            content = file.read()
+            print("Содержимое файла", file_name, ":\n", content)
+    except FileNotFoundError:
+        print("Файл", file_name, "не найден.")
+
+# Создание файла и запись в него текста
+file_name = "example.txt"
+with open(file_name, 'w') as file:
+    file.write("Это первая строка.\n")
+    file.write("Это вторая строка.\n")
+    file.write("Это третья строка.\n")
+
+# Вызов функции для чтения файла
+read_file(file_name)

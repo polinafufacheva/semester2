@@ -1,0 +1,30 @@
+import csv
+
+def process_large_csv(file_name):
+    try:
+        # Инициализация переменных для подсчета суммы и количества значений в столбце
+        total_value = 0
+        count = 0
+
+        with open(file_name, 'r', newline='') as file:
+            reader = csv.reader(file)
+
+            # Пропускаем заголовок, если он есть
+            next(reader)
+
+            # Обработка данных построчно
+            for row in reader:
+                # Пример: суммируем значения из второго столбца (предположим, это числовые данные)
+                value = float(row[1])  # Преобразуем значение из строки в число
+                total_value += value
+                count += 1
+
+        # Вычисляем среднее значение
+        average_value = total_value / count
+        print(f"Среднее значение второго столбца: {average_value}")
+
+    except FileNotFoundError:
+        print(f"Файл {file_name} не найден.")
+
+# Вызов функции для обработки большого CSV-файла
+process_large_csv("weather_data.csv")

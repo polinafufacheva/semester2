@@ -1,0 +1,16 @@
+import pandas as pd
+
+def column_statistics(csv_file):
+    # Чтение данных из CSV-файла
+    df = pd.read_csv(csv_file)
+
+    # Вычисление статистики по каждому столбцу
+    statistics = df.describe()
+
+    return statistics
+
+# Пример использования
+csv_file = "data.csv"
+result = column_statistics(csv_file)
+print("Статистика по каждому столбцу:")
+print(result)

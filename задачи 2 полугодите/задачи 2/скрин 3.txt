@@ -1,0 +1,31 @@
+class TriangleChecker:
+    def __init__(self, a, b, c):
+        self.sides = [a, b, c]
+
+    def is_triangle(self):
+        a, b, c = self.sides
+
+        # Проверка на положительные числа
+        if any(type(side) not in [int, float] for side in self.sides):
+            return "Нужно вводить только числа."
+        if any(side <= 0 for side in self.sides):
+            return "С отрицательными числами ничего не выйдет!"
+
+        # Проверка условия треугольника
+        if a + b > c and a + c > b and b + c > a:
+            return "Ура, можно построить треугольник!"
+        else:
+            return "Жаль, но из этого треугольник не сделать."
+
+# Пример использования класса TriangleChecker
+triangle1 = TriangleChecker(3, 4, 5)
+print(triangle1.is_triangle())  # Ура, можно построить треугольник!
+
+triangle2 = TriangleChecker(1, 1, 3)
+print(triangle2.is_triangle())  # Жаль, но из этого треугольник не сделать.
+
+triangle3 = TriangleChecker(-1, 2, 3)
+print(triangle3.is_triangle())  # С отрицательными числами ничего не выйдет!
+
+triangle4 = TriangleChecker(3, "four", 5)
+print(triangle4.is_triangle())  # Нужно вводить только числа.

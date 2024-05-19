@@ -1,0 +1,89 @@
+class AirlineCompany:
+    def __init__(self):
+        self.planes = []
+        self.routes = []
+
+    def add_plane(self, plane):
+        self.planes.append(plane)
+        print(f"Самолет {plane.model} добавлен в авиакомпанию.")
+
+    def remove_plane(self, model):
+        for plane in self.planes:
+            if plane.model == model:
+                self.planes.remove(plane)
+                print(f"Самолет {model} удален из авиакомпании.")
+                return
+        print(f"Самолет {model} не найден в авиакомпании.")
+
+    def duplicate_plane(self, model):
+        for plane in self.planes:
+            if plane.model == model:
+                new_plane = Plane(model, plane.capacity)
+                self.planes.append(new_plane)
+                print(f"Самолет {model} успешно скопирован.")
+                return
+        print(f"Самолет {model} не найден в авиакомпании.")
+
+    def create_route(self, origin, destination):
+        route = (origin, destination)
+        self.routes.append(route)
+        print(f"Маршрут {origin} - {destination} создан.")
+
+    def remove_route(self, origin, destination):
+        route = (origin, destination)
+        if route in self.routes:
+            self.routes.remove(route)
+            print(f"Маршрут {origin} - {destination} удален.")
+        else:
+            print(f"Маршрут {origin} - {destination} не найден.")
+
+    def find_plane_by_model(self, model):
+        found_planes = [plane for plane in self.planes if plane.model.lower() == model.lower()]
+        if found_planes:
+            print(f"Найдены самолеты с моделью '{model}':")
+            for plane in found_planes:
+                print("-", plane)
+        else:
+            print(f"Самолеты с моделью '{model}' не найдены в авиакомпании.")
+
+    def find_routes_for_city(self, city):
+        available_routes = [route for route in self.routes if city in route]
+        if available_routes:
+            print(f"Доступные маршруты из/в город '{city}':")
+            for route in available_routes:
+                print("-", " - ".join(route))
+        else:
+            print(f"Нет доступных маршрутов из/в город '{city}'.")
+
+class Plane:
+    def __init__(self, model, capacity):
+        self.model = model
+        self.capacity = capacity
+
+    def __str__(self):
+        return f"Модель: {self.model}, Вместимость: {self.capacity} пассажиров"
+
+# Пример использования класса AirlineCompany и Plane
+company = AirlineCompany()
+
+plane1 = Plane("Boeing 737", 189)
+plane2 = Plane("Airbus A320", 180)
+
+company.add_plane(plane1)
+company.add_plane(plane2)
+
+company.duplicate_plane("Boeing 737")
+company.duplicate_plane("Boeing 747")
+
+company.remove_plane("Boeing 737")
+
+company.create_route("Москва", "Париж")
+company.create_route("Москва", "Лондон")
+company.create_route("Москва", "Нью-Йорк")
+
+company.remove_route("Москва", "Париж")
+company.remove_route("Москва", "Берлин")
+
+company.find_plane_by_model("Boeing 737")
+company.find_routes_for_city("Москва")
+company.find_routes_for_city("Лондон")

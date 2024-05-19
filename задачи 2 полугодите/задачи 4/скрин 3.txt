@@ -1,0 +1,22 @@
+def fast_power(base, exponent):
+    # Базовый случай: если показатель степени равен 0, возвращаем 1
+    if exponent == 0:
+        return 1
+    # Рекурсивный случай: если показатель степени четный
+    elif exponent % 2 == 0:
+        # Разделяем показатель степени на два и вызываем рекурсивно функцию для base^exponent/2
+        result = fast_power(base, exponent // 2)
+        # Возводим результат в квадрат
+        return result * result
+    # Рекурсивный случай: если показатель степени нечетный
+    else:
+        # Уменьшаем показатель степени на 1 и вызываем рекурсивно функцию для base^(exponent-1)
+        result = fast_power(base, (exponent - 1) // 2)
+        # Возводим результат в квадрат и умножаем на базу
+        return base * result * result
+
+# Пример использования
+base = 2
+exponent = 10
+result = fast_power(base, exponent)
+print(f"{base} в степени {exponent} равно {result}")

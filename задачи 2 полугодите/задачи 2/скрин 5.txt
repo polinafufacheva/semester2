@@ -1,0 +1,48 @@
+class Library:
+    def __init__(self):
+        self.book_list = []
+
+    def add_book(self, book):
+        self.book_list.append(book)
+        print(f"Книга '{book}' добавлена в библиотеку.")
+
+    def remove_book(self, book):
+        if book in self.book_list:
+            self.book_list.remove(book)
+            print(f"Книга '{book}' удалена из библиотеки.")
+        else:
+            print(f"Книги '{book}' нет в библиотеке.")
+
+    def find_book(self, title):
+        found_books = [book for book in self.book_list if book.title.lower() == title.lower()]
+        if found_books:
+            print(f"Найдены книги с названием '{title}':")
+            for book in found_books:
+                print("-", book)
+        else:
+            print(f"Книги с названием '{title}' не найдены в библиотеке.")
+
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def __str__(self):
+        return f"{self.title} (автор: {self.author})"
+
+# Пример использования класса Library и Book
+library = Library()
+
+book1 = Book("Война и мир", "Лев Толстой")
+book2 = Book("Преступление и наказание", "Федор Достоевский")
+book3 = Book("Гарри Поттер и философский камень", "Дж. К. Роулинг")
+
+library.add_book(book1)
+library.add_book(book2)
+library.add_book(book3)
+
+library.find_book("война и мир")
+library.find_book("гарри поттер")
+
+library.remove_book(book2)
+library.find_book("преступление и наказание")

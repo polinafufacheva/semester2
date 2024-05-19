@@ -1,0 +1,16 @@
+def largest_non_increasing_sequence(nums):
+    # »нициализируем последовательность первым элементом списка
+    sequence = [nums[0]]
+
+    # ѕроходим по остальным числам в списке
+    for num in nums[1:]:
+        # ≈сли текущее число меньше или равно последнему числу в последовательности, добавл€ем его в последовательность
+        if num <= sequence[-1]:
+            sequence.append(num)
+
+    return sequence
+
+# ѕример использовани€
+nums = [5, 3, 8, 4, 2, 7, 9, 1, 6]
+result = largest_non_increasing_sequence(nums)
+print("Ќаибольша€ невозрастающа€ последовательность:", result)

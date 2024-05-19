@@ -1,0 +1,68 @@
+class Matrix:
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    def __str__(self):
+        return '\n'.join(['\t'.join(map(str, row)) for row in self.matrix])
+
+    def add(self, other):
+        if len(self.matrix) != len(other.matrix) or len(self.matrix[0]) != len(other.matrix[0]):
+            raise ValueError("Матрицы должны иметь одинаковый размер для выполнения операции сложения")
+        result = [[self.matrix[i][j] + other.matrix[i][j] for j in range(len(self.matrix[0]))] for i in range(len(self.matrix))]
+        return Matrix(result)
+
+    def subtract(self, other):
+        if len(self.matrix) != len(other.matrix) or len(self.matrix[0]) != len(other.matrix[0]):
+            raise ValueError("Матрицы должны иметь одинаковый размер для выполнения операции вычитания")
+        result = [[self.matrix[i][j] - other.matrix[i][j] for j in range(len(self.matrix[0]))] for i in range(len(self.matrix))]
+        return Matrix(result)
+
+    def multiply(self, other):
+        if len(self.matrix[0]) != len(other.matrix):
+            raise ValueError("Количество столбцов первой матрицы должно быть равно количеству строк второй матрицы для выполнения операции умножения")
+        result = [[sum(self.matrix[i][k] * other.matrix[k][j] for k in range(len(self.matrix[0]))) for j in range(len(other.matrix[0]))] for i in range(len(self.matrix))]
+        return Matrix(result)
+
+    def transpose(self):
+        result = [[self.matrix[j][i] for j in range(len(self.matrix))] for i in range(len(self.matrix[0]))]
+        return Matrix(result)
+
+    def determinant(self):
+        if len(self.matrix) != len(self.matrix[0]):
+            raise ValueError("Матрица должна быть квадратной для вычисления определителя")
+        if len(self.matrix) == 1:
+            return self.matrix[0][0]
+        if len(self.matrix) == 2:
+            return self.matrix[0][0] * self.matrix[1][1] - self.matrix[0][1] * self.matrix[1][0]
+        det = 0
+        for j in range(len(self.matrix)):
+            det += ((-1) ** j) * self.matrix[0][j] * self.minor(0, j).determinant()
+        return det
+
+    def minor(self, row, col):
+        minor_matrix = [row[:col] + row[col+1:] for row in (self.matrix[:row] + self.matrix[row+1:])]
+        return Matrix(minor_matrix)
+
+# Пример использования
+matrix1 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix2 = Matrix([[9, 8, 7], [6, 5, 4], [3, 2, 1]])
+
+print("Матрица 1:")
+print(matrix1)
+print("\nМатрица 2:")
+print(matrix2)
+
+print("\nСложение матриц:")
+print(matrix1.add(matrix2))
+
+print("\nВычитание матриц:")
+print(matrix1.subtract(matrix2))
+
+print("\nУмножение матриц:")
+print(matrix1.multiply(matrix2))
+
+print("\nТранспонирование матрицы 1:")
+print(matrix1.transpose())
+
+print("\nОпределитель матрицы 1:")
+print(matrix1.determinant())

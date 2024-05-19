@@ -1,0 +1,17 @@
+def generate_combinations(word):
+    # Вспомогательная рекурсивная функция для генерации комбинаций
+    def helper(prefix, remaining):
+        if len(remaining) == 0:
+            combinations.append(prefix)
+        else:
+            for i in range(len(remaining)):
+                helper(prefix + remaining[i], remaining[:i] + remaining[i+1:])
+
+    combinations = []
+    helper('', word)
+    return combinations
+
+# Пример использования программы
+word = "abc"
+all_combinations = generate_combinations(word)
+print("Все возможные комбинации букв в слове", word, ":", all_combinations)

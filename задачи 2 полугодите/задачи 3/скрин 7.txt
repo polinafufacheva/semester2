@@ -1,0 +1,35 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.probability import FreqDist
+from nltk.corpus import stopwords
+import string
+
+def analyze_text(file_name):
+    # Открываем файл и считываем его содержимое
+    with open(file_name, 'r', encoding='utf-8') as file:
+        text = file.read()
+
+    # Токенизация текста (разбиение на слова)
+    tokens = word_tokenize(text)
+
+    # Удаление пунктуации и стоп-слов
+    punctuation = set(string.punctuation)
+    stop_words = set(stopwords.words('english'))
+    words = [word.lower() for word in tokens if word.isalnum() and word.lower() not in stop_words and word not in punctuation]
+
+    # Вычисление частоты слов
+    fdist = FreqDist(words)
+
+    # Вывод статистики на экран
+    print("Частота слов:")
+    for word, frequency in fdist.most_common(10):
+        print(f"{word}: {frequency}")
+
+    # Вывод общей информации о тексте
+    print("\nОбщая информация о тексте:")
+    print("Общее количество слов:", len(words))
+    print("Уникальные слова:", len(set(words)))
+
+# Укажите путь к текстовому файлу для анализа
+file_name = "text_data.txt"
+analyze_text(file_name)

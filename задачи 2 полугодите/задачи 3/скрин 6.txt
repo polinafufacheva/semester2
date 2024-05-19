@@ -1,0 +1,24 @@
+import os
+import pandas as pd
+
+def analyze_data(directory):
+    # Создаем пустой DataFrame для сбора данных из всех файлов
+    all_data = pd.DataFrame()
+
+    # Обходим все файлы в директории
+    for file_name in os.listdir(directory):
+        if file_name.endswith('.csv'):
+            file_path = os.path.join(directory, file_name)
+            # Читаем данные из файла и добавляем их в общий DataFrame
+            data = pd.read_csv(file_path)
+            all_data = pd.concat([all_data, data], ignore_index=True)
+
+    # Выводим сводную информацию по данным
+    print("Сводная информация по анализу данных:")
+    print("Общее количество записей:", len(all_data))
+    print("Средний возраст пользователей:", all_data['Age'].mean())
+    print("Самая частая страна местоположения:", all_data['Location'].mode()[0])
+
+# Укажите путь к директории с файлами
+directory = "data"
+analyze_data(directory)

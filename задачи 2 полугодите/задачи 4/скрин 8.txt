@@ -1,0 +1,50 @@
+создание кросворда:
+
+from crossword import Crossword
+
+def generate_crossword(words):
+    # Создаем объект кроссворда
+    crossword = Crossword()
+
+    # Добавляем слова в кроссворд
+    for word in words:
+        crossword.add_word(word)
+
+    # Генерируем кроссворд
+    crossword.generate()
+
+    # Выводим кроссворд
+    crossword.print_crossword()
+
+# Пример использования
+words = ["apple", "banana", "cherry", "orange", "grape"]
+generate_crossword(words)
+
+
+
+
+решение:
+
+
+
+from crossword import CrosswordSolver
+
+def solve_crossword(crossword):
+    # Создаем объект решателя кроссворда
+    solver = CrosswordSolver(crossword)
+
+    # Решаем кроссворд
+    solution = solver.solve()
+
+    # Выводим решение
+    solver.print_solution(solution)
+
+# Пример использования
+crossword = [
+    ['_', '_', '_', '_', '_'],
+    ['_', 'b', '_', '_', '_'],
+    ['_', 'a', '_', '_', '_'],
+    ['_', 'n', '_', '_', '_'],
+    ['_', 'a', '_', '_', '_']
+]
+solve_crossword(crossword)

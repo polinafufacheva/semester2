@@ -1,0 +1,29 @@
+import csv
+
+def read_csv_and_calculate_averages(filename):
+    with open(filename, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        # Преобразуем строки в числа и собираем их по колонкам
+        columns = []
+        for row in reader:
+            for i, value in enumerate(row):
+                if len(columns) <= i:
+                    columns.append([])
+                columns[i].append(float(value))
+
+        # Рассчитываем среднее арифметическое для каждой колонки
+        averages = []
+        for column in columns:
+            averages.append(sum(column) / len(column))
+        
+        return averages
+
+def main():
+    filename = input("Введите имя CSV файла: ")
+    averages = read_csv_and_calculate_averages(filename)
+    
+    for i, average in enumerate(averages):
+        print(f"Среднее арифметическое для колонки {i + 1}: {average}")
+
+if name == "__main__":
+    main()

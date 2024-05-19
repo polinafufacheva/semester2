@@ -1,0 +1,21 @@
+def get_unique_words_sorted(input_string):
+    # Разбиваем строку на слова, используя пробелы как разделители
+    words = input_string.split()
+    # Приводим все слова к нижнему регистру, чтобы избежать дубликатов из-за регистра
+    words = [word.lower() for word in words]
+    # Используем множество для получения уникальных слов
+    unique_words = set(words)
+    # Сортируем уникальные слова в алфавитном порядке
+    sorted_unique_words = sorted(unique_words)
+    return sorted_unique_words
+
+# Запрашиваем у пользователя строку
+input_string = input("Введите строку: ")
+
+# Получаем уникальные слова в алфавитном порядке
+result = get_unique_words_sorted(input_string)
+
+# Выводим результат
+print("Уникальные слова в алфавитном порядке:")
+for word in result:
+    print(word)
